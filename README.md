@@ -15,7 +15,6 @@ To install the extension, run the following command:
 pip install jupyterlab-open-url-parameter
 ```
 
-
 ## Usage
 
 The extension will open a file passed via a URL parameter. The URL parameter is `fromURL`. It is possible to pass multiple files via the `fromURL` parameter. The files will be opened in the order they are passed.
@@ -29,6 +28,10 @@ You can append the following to the URL of your JupyterLab instance: `?fromURL=h
 Which will result in the following URL when JupyterLab is running locally:
 
 http://localhost:8888/lab?fromURL=https://raw.githubusercontent.com/jupyterlab/jupyterlab-demo/master/data/iris.csv&fromURL=https://raw.githubusercontent.com/jupyterlab/jupyterlab-demo/master/notebooks/Lorenz.ipynb
+
+https://user-images.githubusercontent.com/591645/230422671-c12761e9-9b9f-4d23-ab66-344568c6b0a5.mp4
+
+ℹ️ This extension uses the command `filebrowser:open-url` available in JupyterLab by default.
 
 ## Uninstall
 
