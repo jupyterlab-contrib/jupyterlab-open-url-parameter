@@ -33,6 +33,12 @@ https://user-images.githubusercontent.com/591645/230422671-c12761e9-9b9f-4d23-ab
 
 ℹ️ This extension uses the command `filebrowser:open-url` available in JupyterLab by default.
 
+### Using the extension in JupyterLite
+
+The extension can also be used in [JupyterLite](https://jupyterlite.readthedocs.io). Check out the documentation to learn more about adding extensions to JupyterLite.
+
+https://user-images.githubusercontent.com/591645/230426591-04b5155d-3297-4401-b979-d86561188c17.mp4
+
 ## Uninstall
 
 To remove the extension, run the following command:
