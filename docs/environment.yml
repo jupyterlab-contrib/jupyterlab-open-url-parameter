@@ -1,0 +1,15 @@
+name: jupyterlab-open-url-parameter
+channels:
+- conda-forge
+dependencies:
+- build
+- python=3.10
+- mamba
+- pydata-sphinx-theme
+- myst-parser
+- jupyterlab>=3.5.0,<3.6
+- nodejs=18
+- jupyterlite>=0.1.0,<0.2
+- pip:
+  - jupyterlite-sphinx
+  - ..

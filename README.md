@@ -1,6 +1,8 @@
 # jupyterlab-open-url-parameter
 
-[![Github Actions Status](https://github.com/jupyterlab-contrib/jupyterlab-open-url-parameter/workflows/Build/badge.svg)](https://github.com/jupyterlab-contrib/jupyterlab-open-url-parameter/actions/workflows/build.yml)[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jupyterlab-contrib/jupyterlab-open-url-parameter/main?urlpath=lab)
+[![Github Actions Status](https://github.com/jupyterlab-contrib/jupyterlab-open-url-parameter/workflows/Build/badge.svg)](https://github.com/jupyterlab-contrib/jupyterlab-open-url-parameter/actions/workflows/build.yml)
+[![JupyterLite](https://jupyterlite.rtfd.io/en/latest/_static/badge-launch.svg)](https://jupyterlab-open-url-parameter.readthedocs.io/en/latest/lite/lab)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jupyterlab-contrib/jupyterlab-open-url-parameter/main?urlpath=lab)
 
 JupyterLab extension to open files passed via a URL parameter.
 
