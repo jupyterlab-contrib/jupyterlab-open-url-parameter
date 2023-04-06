@@ -1,4 +1,4 @@
-# jupyterlab_open_url_parameter
+# jupyterlab-open-url-parameter
 
 [![Github Actions Status](https://github.com/jupyterlab-contrib/jupyterlab-open-url-parameter/workflows/Build/badge.svg)](https://github.com/jupyterlab-contrib/jupyterlab-open-url-parameter/actions/workflows/build.yml)[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jupyterlab-contrib/jupyterlab-open-url-parameter/main?urlpath=lab)
 JupyterLab extension to open files passed via a URL parameter
@@ -9,18 +9,33 @@ JupyterLab extension to open files passed via a URL parameter
 
 ## Install
 
-To install the extension, execute:
+To install the extension, run the following command:
 
 ```bash
-pip install jupyterlab_open_url_parameter
+pip install jupyterlab-open-url-parameter
 ```
+
+
+## Usage
+
+The extension will open a file passed via a URL parameter. The URL parameter is `fromURL`. It is possible to pass multiple files via the `fromURL` parameter. The files will be opened in the order they are passed.
+
+For example if you would like to open a notebook and a csv file:
+- https://raw.githubusercontent.com/jupyterlab/jupyterlab-demo/master/notebooks/Lorenz.ipynb
+- https://raw.githubusercontent.com/jupyterlab/jupyterlab-demo/master/data/iris.csv
+
+You can append the following to the URL of your JupyterLab instance: `?fromURL=https://raw.githubusercontent.com/jupyterlab/jupyterlab-demo/master/notebooks/Lorenz.ipynb&fromURL=https://raw.githubusercontent.com/jupyterlab/jupyterlab-demo/master/data/iris.csv`
+
+Which will result in the following URL when JupyterLab is running locally:
+
+http://localhost:8888/lab?fromURL=https://raw.githubusercontent.com/jupyterlab/jupyterlab-demo/master/data/iris.csv&fromURL=https://raw.githubusercontent.com/jupyterlab/jupyterlab-demo/master/notebooks/Lorenz.ipynb
 
 ## Uninstall
 
-To remove the extension, execute:
+To remove the extension, run the following command:
 
 ```bash
-pip uninstall jupyterlab_open_url_parameter
+pip uninstall jupyterlab-open-url-parameter
 ```
 
 ## Contributing
@@ -64,7 +79,7 @@ jupyter lab build --minimize=False
 ### Development uninstall
 
 ```bash
-pip uninstall jupyterlab_open_url_parameter
+pip uninstall jupyterlab-open-url-parameter
 ```
 
 In development mode, you will also need to remove the symlink created by `jupyter labextension develop`
