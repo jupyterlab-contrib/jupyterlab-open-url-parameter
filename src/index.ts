@@ -9,7 +9,7 @@ import { PageConfig, URLExt } from '@jupyterlab/coreutils';
 /**
  * The regular expression matching the lab URL.
  */
-const URL_PATTERN = new RegExp('/lab\\/?');
+const URL_PATTERN = new RegExp('/lab\/?');
 
 /**
  * Initialization data for the jupyterlab-open-url-parameter extension.
@@ -33,7 +33,8 @@ const plugin: JupyterFrontEndPlugin<void> = {
         }
 
         const urlParams = new URLSearchParams(search);
-        const paths = urlParams.getAll('fromURL');
+        const paramName = 'fromURL';
+        const paths = urlParams.getAll(paramName);
         if (!paths) {
           return;
         }
@@ -44,8 +45,8 @@ const plugin: JupyterFrontEndPlugin<void> = {
             void commands.execute('filebrowser:open-url', { url });
           });
           const url = new URL(URLExt.join(PageConfig.getBaseUrl(), request));
-          // only remove the path (to keep extra parameters like the RTC room)
-          url.searchParams.delete('path');
+          // only remove the fromURL parameter
+          url.searchParams.delete(paramName);
           const { pathname, search } = url;
           router.navigate(`${pathname}${search}`, { skipRouting: true });
         });
