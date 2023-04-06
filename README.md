@@ -1,7 +1,8 @@
 # jupyterlab-open-url-parameter
 
 [![Github Actions Status](https://github.com/jupyterlab-contrib/jupyterlab-open-url-parameter/workflows/Build/badge.svg)](https://github.com/jupyterlab-contrib/jupyterlab-open-url-parameter/actions/workflows/build.yml)[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jupyterlab-contrib/jupyterlab-open-url-parameter/main?urlpath=lab)
-JupyterLab extension to open files passed via a URL parameter
+
+JupyterLab extension to open files passed via a URL parameter.
 
 ## Requirements
 
@@ -20,6 +21,7 @@ pip install jupyterlab-open-url-parameter
 The extension will open a file passed via a URL parameter. The URL parameter is `fromURL`. It is possible to pass multiple files via the `fromURL` parameter. The files will be opened in the order they are passed.
 
 For example if you would like to open a notebook and a csv file:
+
 - https://raw.githubusercontent.com/jupyterlab/jupyterlab-demo/master/notebooks/Lorenz.ipynb
 - https://raw.githubusercontent.com/jupyterlab/jupyterlab-demo/master/data/iris.csv
 

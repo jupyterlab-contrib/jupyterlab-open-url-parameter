@@ -9,7 +9,7 @@ import { PageConfig, URLExt } from '@jupyterlab/coreutils';
 /**
  * The regular expression matching the lab URL.
  */
-const URL_PATTERN = new RegExp('/lab\/?');
+const URL_PATTERN = new RegExp('/lab/?');
 
 /**
  * Initialization data for the jupyterlab-open-url-parameter extension.
