@@ -1,6 +1,6 @@
 # jupyterlab-open-url-parameter
 
-[![Extension status](https://img.shields.io/badge/status-ready-success "ready to be used")](https://jupyterlab-contrib.github.io/)
+[![Extension status](https://img.shields.io/badge/status-ready-success 'ready to be used')](https://jupyterlab-contrib.github.io/)
 [![Github Actions Status](https://github.com/jupyterlab-contrib/jupyterlab-open-url-parameter/workflows/Build/badge.svg)](https://github.com/jupyterlab-contrib/jupyterlab-open-url-parameter/actions/workflows/build.yml)
 [![JupyterLite](https://jupyterlite.rtfd.io/en/latest/_static/badge-launch.svg)](https://jupyterlab-open-url-param.readthedocs.io/en/latest/lite/lab)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jupyterlab-contrib/jupyterlab-open-url-parameter/main?urlpath=lab)
