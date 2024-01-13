@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling>=1.4.0", "jupyterlab>=3.4.7,<4.0.0", "hatch-nodejs-version"]
+requires = ["hatchling>=1.4.0", "jupyterlab>=4.0.0,<5.0.0", "hatch-nodejs-version"]
 build-backend = "hatchling.build"
 
 [project]
@@ -10,7 +10,7 @@ requires-python = ">=3.7"
 classifiers = [
     "Framework :: Jupyter",
     "Framework :: Jupyter :: JupyterLab",
-    "Framework :: Jupyter :: JupyterLab :: 3",
+    "Framework :: Jupyter :: JupyterLab :: 4",
     "Framework :: Jupyter :: JupyterLab :: Extensions",
     "Framework :: Jupyter :: JupyterLab :: Extensions :: Prebuilt",
     "License :: OSI Approved :: BSD License",
