@@ -9,7 +9,7 @@ JupyterLab extension to open files passed via a URL parameter.
 
 ## Requirements
 
-- JupyterLab >= 3.0
+- JupyterLab >= 4.0
 
 ## Install
 
