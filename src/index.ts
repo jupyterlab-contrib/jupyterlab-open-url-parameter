@@ -104,7 +104,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
 
         const [match] = matches;
         // handle opening the URL with the Notebook 7 separately
-        if (match?.includes('/notebooks')) {
+        if (match?.includes('/notebooks') || match?.includes('/edit')) {
           const [first] = urls;
           await fetchAndOpen(first);
           handleRoute();
