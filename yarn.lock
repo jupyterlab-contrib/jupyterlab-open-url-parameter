@@ -401,6 +401,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jupyterlab/docmanager@npm:^4.0.10":
+  version: 4.0.10
+  resolution: "@jupyterlab/docmanager@npm:4.0.10"
+  dependencies:
+    "@jupyterlab/apputils": ^4.1.10
+    "@jupyterlab/coreutils": ^6.0.10
+    "@jupyterlab/docregistry": ^4.0.10
+    "@jupyterlab/services": ^7.0.10
+    "@jupyterlab/statusbar": ^4.0.10
+    "@jupyterlab/translation": ^4.0.10
+    "@jupyterlab/ui-components": ^4.0.10
+    "@lumino/algorithm": ^2.0.1
+    "@lumino/coreutils": ^2.1.2
+    "@lumino/disposable": ^2.1.2
+    "@lumino/messaging": ^2.0.1
+    "@lumino/properties": ^2.0.1
+    "@lumino/signaling": ^2.1.2
+    "@lumino/widgets": ^2.3.0
+    react: ^18.2.0
+  checksum: 8be669130f29f9245c75e6b03f2bf788da17e1026b1117e0bbd8fe84afca5a9fddfa27fa879231979db1a2bf62c3e9b50eb38586cc155a3e64e1c1dd2e528c9b
+  languageName: node
+  linkType: hard
+
 "@jupyterlab/docregistry@npm:^4.0.10":
   version: 4.0.10
   resolution: "@jupyterlab/docregistry@npm:4.0.10"
@@ -423,6 +446,34 @@ __metadata:
     "@lumino/signaling": ^2.1.2
     "@lumino/widgets": ^2.3.0
   checksum: 0863d8b3c97b8790280805cb781f7448e6a26f6f7e5e75d597d1add480be988bbaa72a6792d2417bc648800d4af30d96af8437ef5c6d9906819e36010d523a3c
+  languageName: node
+  linkType: hard
+
+"@jupyterlab/filebrowser@npm:^4.0.10":
+  version: 4.0.10
+  resolution: "@jupyterlab/filebrowser@npm:4.0.10"
+  dependencies:
+    "@jupyterlab/apputils": ^4.1.10
+    "@jupyterlab/coreutils": ^6.0.10
+    "@jupyterlab/docmanager": ^4.0.10
+    "@jupyterlab/docregistry": ^4.0.10
+    "@jupyterlab/services": ^7.0.10
+    "@jupyterlab/statedb": ^4.0.10
+    "@jupyterlab/statusbar": ^4.0.10
+    "@jupyterlab/translation": ^4.0.10
+    "@jupyterlab/ui-components": ^4.0.10
+    "@lumino/algorithm": ^2.0.1
+    "@lumino/coreutils": ^2.1.2
+    "@lumino/disposable": ^2.1.2
+    "@lumino/domutils": ^2.0.1
+    "@lumino/dragdrop": ^2.1.4
+    "@lumino/messaging": ^2.0.1
+    "@lumino/polling": ^2.1.2
+    "@lumino/signaling": ^2.1.2
+    "@lumino/virtualdom": ^2.0.1
+    "@lumino/widgets": ^2.3.0
+    react: ^18.2.0
+  checksum: f19884d40b0b1761e023c939cae1f11112b3b021f75df4806d97d0434e8b25c651bb054a66f563faa99e46c4b2b820b54e6a0e48bffa49d0a0e7bce145c34852
   languageName: node
   linkType: hard
 
@@ -3223,6 +3274,7 @@ __metadata:
   dependencies:
     "@jupyterlab/application": ^4.0.10
     "@jupyterlab/builder": ^4.0.0
+    "@jupyterlab/filebrowser": ^4.0.10
     "@types/json-schema": ^7.0.11
     "@types/react": ^18.0.26
     "@types/react-addons-linked-state-mixin": ^0.14.22
@@ -3243,7 +3295,7 @@ __metadata:
     stylelint-config-standard: ^34.0.0
     stylelint-csstree-validator: ^3.0.0
     stylelint-prettier: ^4.0.0
-    typescript: ~5.0.2
+    typescript: ~5.1.6
     yjs: ^13.5.40
   languageName: unknown
   linkType: soft
@@ -5071,23 +5123,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:~5.0.2":
-  version: 5.0.4
-  resolution: "typescript@npm:5.0.4"
+"typescript@npm:~5.1.6":
+  version: 5.1.6
+  resolution: "typescript@npm:5.1.6"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 82b94da3f4604a8946da585f7d6c3025fff8410779e5bde2855ab130d05e4fd08938b9e593b6ebed165bda6ad9292b230984f10952cf82f0a0ca07bbeaa08172
+  checksum: b2f2c35096035fe1f5facd1e38922ccb8558996331405eb00a5111cc948b2e733163cc22fab5db46992aba7dd520fff637f2c1df4996ff0e134e77d3249a7350
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@~5.0.2#~builtin<compat/typescript>":
-  version: 5.0.4
-  resolution: "typescript@patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=85af82"
+"typescript@patch:typescript@~5.1.6#~builtin<compat/typescript>":
+  version: 5.1.6
+  resolution: "typescript@patch:typescript@npm%3A5.1.6#~builtin<compat/typescript>::version=5.1.6&hash=85af82"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: bb309d320c59a26565fb3793dba550576ab861018ff3fd1b7fccabbe46ae4a35546bc45f342c0a0b6f265c801ccdf64ffd68f548f117ceb7f0eac4b805cd52a9
+  checksum: 21e88b0a0c0226f9cb9fd25b9626fb05b4c0f3fddac521844a13e1f30beb8f14e90bd409a9ac43c812c5946d714d6e0dee12d5d02dfc1c562c5aacfa1f49b606
   languageName: node
   linkType: hard
 
