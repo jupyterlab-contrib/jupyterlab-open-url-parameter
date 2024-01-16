@@ -56,7 +56,10 @@
     },
     "dependencies": {
         "@jupyterlab/application": "^4.0.10",
-        "@jupyterlab/filebrowser": "^4.0.10"
+        "@jupyterlab/apputils": "^4.0.10",
+        "@jupyterlab/coreutils": "^4.0.10",
+        "@jupyterlab/filebrowser": "^4.0.10",
+        "@jupyterlab/translation": "^4.0.10"
     },
     "devDependencies": {
         "@jupyterlab/builder": "^4.0.0",
@@ -80,7 +83,7 @@
         "stylelint-config-standard": "^34.0.0",
         "stylelint-csstree-validator": "^3.0.0",
         "stylelint-prettier": "^4.0.0",
-        "typescript": "~5.1.6",
+        "typescript": "~5.0.2",
         "yjs": "^13.5.40"
     },
     "sideEffects": [
