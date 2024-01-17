@@ -48,7 +48,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
         const urlParams = new URLSearchParams(search);
         const paramName = 'fromURL';
         const paths = urlParams.getAll(paramName);
-        if (!paths) {
+        if (!paths || paths.length === 0) {
           return;
         }
         const urls = paths.map(path => decodeURIComponent(path));
