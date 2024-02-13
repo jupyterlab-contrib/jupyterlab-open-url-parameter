@@ -82,6 +82,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
 
           // upload the content of the file to the server
           try {
+            // FIXME: handle Content-Disposition: https://github.com/jupyterlab/jupyterlab/issues/11531
             const name = PathExt.basename(url);
             const file = new File([blob], name, { type });
             const model = await browser?.model.upload(file);
