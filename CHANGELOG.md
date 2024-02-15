@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.3.0
+
+([Full Changelog](https://github.com/jupyterlab-contrib/jupyterlab-open-url-parameter/compare/v0.2.0...7d144fe480286c662104a25a5bed1f6952b472ee))
+
+### Enhancements made
+
+- Improve integration with Notebook 7 [#16](https://github.com/jupyterlab-contrib/jupyterlab-open-url-parameter/pull/16) ([@jtpio](https://github.com/jtpio))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab-contrib/jupyterlab-open-url-parameter/graphs/contributors?from=2024-01-15&to=2024-02-15&type=c))
+
+[@jtpio](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-open-url-parameter+involves%3Ajtpio+updated%3A2024-01-15..2024-02-15&type=Issues) | [@yuvipanda](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-open-url-parameter+involves%3Ayuvipanda+updated%3A2024-01-15..2024-02-15&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.2.0
 
 ([Full Changelog](https://github.com/jupyterlab-contrib/jupyterlab-open-url-parameter/compare/v0.1.0...0340db71b9d54dc0238fa79f17dfe50e98078d58))
@@ -27,8 +43,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab-contrib/jupyterlab-open-url-parameter/graphs/contributors?from=2023-04-06&to=2024-01-15&type=c))
 
 [@dependabot](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-open-url-parameter+involves%3Adependabot+updated%3A2023-04-06..2024-01-15&type=Issues) | [@github-actions](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-open-url-parameter+involves%3Agithub-actions+updated%3A2023-04-06..2024-01-15&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-open-url-parameter+involves%3Ajtpio+updated%3A2023-04-06..2024-01-15&type=Issues) | [@yuvipanda](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-open-url-parameter+involves%3Ayuvipanda+updated%3A2023-04-06..2024-01-15&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.1.0
 
