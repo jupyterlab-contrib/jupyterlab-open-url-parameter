@@ -120,4 +120,7 @@ dmypy.json
 # Yarn cache
 .yarn/
 
+# Generated
 _temp_extension
+_output
+*.doit.db
