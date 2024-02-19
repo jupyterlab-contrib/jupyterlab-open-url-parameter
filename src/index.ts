@@ -6,7 +6,7 @@ import {
 
 import { showErrorMessage } from '@jupyterlab/apputils';
 
-import { PageConfig, PathExt, URLExt } from '@jupyterlab/coreutils';
+import { PathExt } from '@jupyterlab/coreutils';
 
 import { IDefaultFileBrowser } from '@jupyterlab/filebrowser';
 
@@ -52,15 +52,6 @@ const plugin: JupyterFrontEndPlugin<void> = {
           return;
         }
         const urls = paths.map(path => decodeURIComponent(path));
-
-        // handle the route and remove the fromURL parameter
-        const handleRoute = () => {
-          const url = new URL(URLExt.join(PageConfig.getBaseUrl(), request));
-          // only remove the fromURL parameter
-          url.searchParams.delete(paramName);
-          const { pathname, search } = url;
-          router.navigate(`${pathname}${search}`, { skipRouting: true });
-        };
 
         // fetch the file from the URL and open it with the docmanager
         const fetchAndOpen = async (url: string): Promise<void> => {
@@ -108,13 +99,11 @@ const plugin: JupyterFrontEndPlugin<void> = {
         if (match?.includes('/notebooks') || match?.includes('/edit')) {
           const [first] = urls;
           await fetchAndOpen(first);
-          handleRoute();
           return;
         }
 
         app.restored.then(async () => {
           await Promise.all(urls.map(url => fetchAndOpen(url)));
-          handleRoute();
         });
       }
     });
