@@ -54,6 +54,7 @@
         "watch:labextension": "jupyter labextension watch .",
         "watch:src": "tsc -w --sourceMap"
     },
+    "packageManager": "yarn@3.5.0",
     "dependencies": {
         "@jupyterlab/application": "^4.0.10",
         "@jupyterlab/apputils": "^4.1.10",
