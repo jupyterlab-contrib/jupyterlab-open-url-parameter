@@ -65,6 +65,11 @@ const plugin: JupyterFrontEndPlugin<void> = {
             ? ''
             : folderPath
           : '';
+        const folderSegments = uploadDirectory.split('/').filter(Boolean);
+        const hasParentDirectorySegment = folderSegments.some(
+          part => part === '..'
+        );
+        const isAbsoluteFolderPath = trimmedFolder.startsWith('/');
 
         // handle the route and remove the fromURL parameter
         const handleRoute = () => {
@@ -157,36 +162,72 @@ const plugin: JupyterFrontEndPlugin<void> = {
 
         const openUrls = async (targets: string[]): Promise<void> => {
           const currentDirectory = browser?.model.path ?? '';
-
-          if (uploadDirectory && browser) {
-            await ensureDirectory(uploadDirectory);
-            await browser.model.cd(uploadDirectory);
-          }
+          let changedDirectory = false;
 
           try {
+            if (uploadDirectory && browser) {
+              await ensureDirectory(uploadDirectory);
+              await browser.model.cd(uploadDirectory);
+              changedDirectory = true;
+            }
+
             for (const url of targets) {
               await fetchAndOpen(url);
             }
+          } catch (error) {
+            return showErrorMessage(
+              trans._p('showErrorMessage', 'Upload Error'),
+              error as Error
+            );
           } finally {
-            if (uploadDirectory && browser) {
-              await browser.model.cd(currentDirectory);
-              void browser.model.refresh();
+            if (changedDirectory && browser) {
+              try {
+                await browser.model.cd(currentDirectory);
+              } catch (reason) {
+                void showErrorMessage(
+                  trans._p('showErrorMessage', 'Upload Error'),
+                  reason as Error
+                );
+              } finally {
+                void browser.model.refresh();
+              }
             }
           }
         };
+
+        if (
+          trimmedFolder &&
+          (isAbsoluteFolderPath || hasParentDirectorySegment)
+        ) {
+          await showErrorMessage(
+            trans.__('Invalid folder path'),
+            trans.__(
+              'The "%1" parameter must be a relative folder path and cannot contain ".." segments.',
+              folderParamName
+            )
+          );
+          handleRoute();
+          return;
+        }
 
         const [match] = matches;
         // handle opening the URL with the Notebook 7 separately
         if (match?.includes('/notebooks') || match?.includes('/edit')) {
           const [first] = urls;
-          await openUrls([first]);
-          handleRoute();
+          try {
+            await openUrls([first]);
+          } finally {
+            handleRoute();
+          }
           return;
         }
 
         app.restored.then(async () => {
-          await openUrls(urls);
-          handleRoute();
+          try {
+            await openUrls(urls);
+          } finally {
+            handleRoute();
+          }
         });
       }
     });
