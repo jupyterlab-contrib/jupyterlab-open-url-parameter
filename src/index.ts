@@ -53,23 +53,16 @@ const plugin: JupyterFrontEndPlugin<void> = {
           return;
         }
         const urls = paths;
-        const folder = urlParams.get(folderParamName) ?? '';
-        const normalizedFolder = folder ? PathExt.normalize(folder) : '';
-        const trimmedFolder =
-          normalizedFolder !== '/' && normalizedFolder.endsWith('/')
-            ? normalizedFolder.slice(0, -1)
-            : normalizedFolder;
-        const folderPath = PathExt.removeSlash(trimmedFolder);
-        const uploadDirectory = normalizedFolder
-          ? folderPath === '.'
-            ? ''
-            : folderPath
+        const folder = (urlParams.get(folderParamName) ?? '').trim();
+        const normalizedFolder = folder
+          ? PathExt.removeSlash(PathExt.normalize(folder))
           : '';
+        const uploadDirectory =
+          normalizedFolder === '.' ? '' : normalizedFolder;
         const folderSegments = uploadDirectory.split('/').filter(Boolean);
         const hasParentDirectorySegment = folderSegments.some(
           part => part === '..'
         );
-        const isAbsoluteFolderPath = trimmedFolder.startsWith('/');
 
         // handle the route and remove the fromURL parameter
         const handleRoute = () => {
@@ -81,16 +74,28 @@ const plugin: JupyterFrontEndPlugin<void> = {
           router.navigate(`${pathname}${search}`, { skipRouting: true });
         };
 
-        const ensureDirectory = async (directory: string): Promise<void> => {
+        const ensureDirectory = async (
+          directory: string,
+          basePath = ''
+        ): Promise<void> => {
           if (!directory) {
             return;
           }
 
-          const contents = app.serviceManager.contents;
-          let currentPath = '';
+          const isNotFoundError = (reason: any): boolean => {
+            const message = String(reason?.message ?? reason);
+            return (
+              reason?.response?.status === 404 ||
+              message.includes('Could not find content with path')
+            );
+          };
+
+          const contents =
+            browser?.model.manager.services.contents ??
+            app.serviceManager.contents;
+          let currentPath = basePath;
           for (const part of directory.split('/').filter(Boolean)) {
-            const parentPath = currentPath;
-            currentPath = currentPath ? PathExt.join(currentPath, part) : part;
+            currentPath = contents.resolvePath(currentPath, part);
             try {
               const model = await contents.get(currentPath, { content: false });
               if (model.type !== 'directory') {
@@ -99,8 +104,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
                 );
               }
             } catch (reason) {
-              const error = reason as any;
-              if (error?.response?.status !== 404) {
+              if (!isNotFoundError(reason)) {
                 throw reason;
               }
               try {
@@ -108,22 +112,17 @@ const plugin: JupyterFrontEndPlugin<void> = {
                   type: 'directory'
                 });
               } catch (saveReason) {
-                const saveError = saveReason as any;
-                if (saveError?.response?.status === 409) {
+                const message = String(
+                  (saveReason as any)?.message ?? saveReason
+                ).toLowerCase();
+                if (
+                  (saveReason as any)?.response?.status === 409 ||
+                  message.includes('already exists')
+                ) {
+                  // Race with another creator, treat as success.
                   continue;
                 }
-                const created = await contents.newUntitled({
-                  path: parentPath,
-                  type: 'directory'
-                });
-                try {
-                  await contents.rename(created.path, currentPath);
-                } catch (renameReason) {
-                  const renameError = renameReason as any;
-                  if (renameError?.response?.status !== 409) {
-                    throw renameReason;
-                  }
-                }
+                throw saveReason;
               }
             }
           }
@@ -179,9 +178,14 @@ const plugin: JupyterFrontEndPlugin<void> = {
 
           try {
             if (uploadDirectory && browser) {
-              await ensureDirectory(uploadDirectory);
+              const contents = browser.model.manager.services.contents;
+              await ensureDirectory(uploadDirectory, currentDirectory);
               await browser.model.refresh();
-              await browser.model.cd(uploadDirectory);
+              const targetDirectory = contents.resolvePath(
+                currentDirectory,
+                uploadDirectory
+              );
+              await browser.model.cd(targetDirectory);
               changedDirectory = true;
             }
 
@@ -209,14 +213,11 @@ const plugin: JupyterFrontEndPlugin<void> = {
           }
         };
 
-        if (
-          trimmedFolder &&
-          (isAbsoluteFolderPath || hasParentDirectorySegment)
-        ) {
+        if (normalizedFolder && hasParentDirectorySegment) {
           await showErrorMessage(
             trans.__('Invalid folder path'),
             trans.__(
-              'The "%1" parameter must be a relative folder path and cannot contain ".." segments.',
+              'The "%1" parameter cannot contain ".." segments.',
               folderParamName
             )
           );
