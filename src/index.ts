@@ -89,6 +89,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
           const contents = app.serviceManager.contents;
           let currentPath = '';
           for (const part of directory.split('/').filter(Boolean)) {
+            const parentPath = currentPath;
             currentPath = currentPath ? PathExt.join(currentPath, part) : part;
             try {
               const model = await contents.get(currentPath, { content: false });
@@ -108,8 +109,20 @@ const plugin: JupyterFrontEndPlugin<void> = {
                 });
               } catch (saveReason) {
                 const saveError = saveReason as any;
-                if (saveError?.response?.status !== 409) {
-                  throw saveReason;
+                if (saveError?.response?.status === 409) {
+                  continue;
+                }
+                const created = await contents.newUntitled({
+                  path: parentPath,
+                  type: 'directory'
+                });
+                try {
+                  await contents.rename(created.path, currentPath);
+                } catch (renameReason) {
+                  const renameError = renameReason as any;
+                  if (renameError?.response?.status !== 409) {
+                    throw renameReason;
+                  }
                 }
               }
             }
@@ -167,6 +180,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
           try {
             if (uploadDirectory && browser) {
               await ensureDirectory(uploadDirectory);
+              await browser.model.refresh();
               await browser.model.cd(uploadDirectory);
               changedDirectory = true;
             }
