@@ -90,11 +90,23 @@ const plugin: JupyterFrontEndPlugin<void> = {
             );
           };
 
+          const isConflictError = (reason: any): boolean => {
+            const message = String(reason?.message ?? reason).toLowerCase();
+            return (
+              reason?.response?.status === 409 ||
+              message.includes('already exists')
+            );
+          };
+
           const contents =
             browser?.model.manager.services.contents ??
             app.serviceManager.contents;
+          const cleanupCreated = async (path: string): Promise<void> => {
+            await contents.delete(path).catch(() => undefined);
+          };
           let currentPath = basePath;
           for (const part of directory.split('/').filter(Boolean)) {
+            const parentPath = currentPath;
             currentPath = contents.resolvePath(currentPath, part);
             try {
               const model = await contents.get(currentPath, { content: false });
@@ -107,22 +119,24 @@ const plugin: JupyterFrontEndPlugin<void> = {
               if (!isNotFoundError(reason)) {
                 throw reason;
               }
+              const created = await contents.newUntitled({
+                path: parentPath,
+                type: 'directory'
+              });
+              if (created.path === currentPath) {
+                continue;
+              }
+
               try {
-                await contents.save(currentPath, {
-                  type: 'directory'
-                });
-              } catch (saveReason) {
-                const message = String(
-                  (saveReason as any)?.message ?? saveReason
-                ).toLowerCase();
-                if (
-                  (saveReason as any)?.response?.status === 409 ||
-                  message.includes('already exists')
-                ) {
-                  // Race with another creator, treat as success.
+                await contents.rename(created.path, currentPath);
+              } catch (renameReason) {
+                if (isConflictError(renameReason)) {
+                  await cleanupCreated(created.path);
                   continue;
                 }
-                throw saveReason;
+
+                await cleanupCreated(created.path);
+                throw renameReason;
               }
             }
           }
