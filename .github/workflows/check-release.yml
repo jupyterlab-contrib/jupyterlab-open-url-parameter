@@ -20,7 +20,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Distributions
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v6
         with:
           name: jupyterlab_open_url_parameter-releaser-dist-${{ github.run_number }}
           path: .jupyter_releaser_checkout/dist
