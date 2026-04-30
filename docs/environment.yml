@@ -2,7 +2,6 @@ name: jupyterlab-open-url-parameter
 channels:
 - conda-forge
 dependencies:
-- pip
 - python=3.10
 - pydata-sphinx-theme
 - myst-parser
