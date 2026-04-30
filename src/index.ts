@@ -47,7 +47,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
 
         const urlParams = new URLSearchParams(search);
         const paramName = 'fromURL';
-        const folderParamName = 'folder';
+        const folderParamName = 'fromURLToFolder';
         const paths = urlParams.getAll(paramName);
         if (paths.length === 0) {
           return;
