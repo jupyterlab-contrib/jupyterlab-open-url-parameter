@@ -34,6 +34,15 @@ Which will result in the following URL when JupyterLab is running locally:
 
 http://localhost:8888/lab?fromURL=https://raw.githubusercontent.com/jupyterlab/jupyterlab-demo/master/data/iris.csv&fromURL=https://raw.githubusercontent.com/jupyterlab/jupyterlab-demo/master/notebooks/Lorenz.ipynb
 
+To place downloaded files in a specific destination, use `fromURLToFolder` in the URL.
+Missing directories are created automatically.
+
+For example:
+
+http://localhost:8888/lab?fromURL=https://raw.githubusercontent.com/jupyterlab/jupyterlab_apod/cffae6a4049af97436f0c19a0dae65a574f74390/src/index.ts&fromURLToFolder=step-05
+
+With multiple `fromURL` values, the same `fromURLToFolder` destination is used for all files.
+
 https://user-images.githubusercontent.com/591645/230422671-c12761e9-9b9f-4d23-ab66-344568c6b0a5.mp4
 
 ℹ️ This extension uses the command `filebrowser:open-url` available in JupyterLab by default.
