@@ -19,7 +19,7 @@ const URL_PATTERN = new RegExp('/(lab|notebooks|edit)/?');
 
 type OpenUrl = {
   url: string;
-  open: bool;
+  open: boolean;
 };
 
 /**
