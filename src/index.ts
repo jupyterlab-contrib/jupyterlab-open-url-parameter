@@ -17,6 +17,11 @@ import { ITranslator, nullTranslator } from '@jupyterlab/translation';
  */
 const URL_PATTERN = new RegExp('/(lab|notebooks|edit)/?');
 
+type OpenUrl = {
+  url: string;
+  open: bool;
+};
+
 /**
  * Initialization data for the jupyterlab-open-url-parameter extension.
  */
@@ -47,12 +52,16 @@ const plugin: JupyterFrontEndPlugin<void> = {
 
         const urlParams = new URLSearchParams(search);
         const paramName = 'fromURL';
+        const noOpenParamName = 'fromURLNoOpen';
         const folderParamName = 'fromURLToFolder';
         const paths = urlParams.getAll(paramName);
-        if (paths.length === 0) {
+        const noOpenPaths = urlParams.getAll(noOpenParamName);
+        if (paths.length === 0 && noOpenPaths.length === 0) {
           return;
         }
-        const urls = paths;
+        const urls = paths
+          .map(url => ({ url, open: true }))
+          .concat(noOpenPaths.map(url => ({ url, open: false })));
         const folder = (urlParams.get(folderParamName) ?? '').trim();
         const normalizedFolder = folder
           ? PathExt.removeSlash(PathExt.normalize(folder))
@@ -143,19 +152,19 @@ const plugin: JupyterFrontEndPlugin<void> = {
         };
 
         // fetch the file from the URL and open it with the docmanager
-        const fetchAndOpen = async (url: string): Promise<void> => {
+        const fetchAndOpen = async (url: OpenUrl): Promise<void> => {
           let type = '';
           let blob;
 
           // fetch the file from the URL
           try {
-            const req = await fetch(url);
+            const req = await fetch(url.url);
             blob = await req.blob();
             type = req.headers.get('Content-Type') ?? '';
           } catch (err) {
             const reason = err as any;
             if (reason.response && reason.response.status !== 200) {
-              reason.message = trans.__('Could not open URL: %1', url);
+              reason.message = trans.__('Could not open URL: %1', url.url);
             }
             return showErrorMessage(trans.__('Cannot fetch'), reason);
           }
@@ -163,12 +172,16 @@ const plugin: JupyterFrontEndPlugin<void> = {
           // upload the content of the file to the server
           try {
             // FIXME: handle Content-Disposition: https://github.com/jupyterlab/jupyterlab/issues/11531
-            const name = PathExt.basename(url);
+            const name = PathExt.basename(url.url);
             const model = await browser?.model.upload(
               new File([blob], name, { type })
             );
 
             if (!model) {
+              return;
+            }
+
+            if (!url.open) {
               return;
             }
 
@@ -186,7 +199,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
           }
         };
 
-        const openUrls = async (targets: string[]): Promise<void> => {
+        const openUrls = async (targets: OpenUrl[]): Promise<void> => {
           const currentDirectory = browser?.model.path ?? '';
           let changedDirectory = false;
 
